@@ -17,13 +17,56 @@ $updater->set_username( 'OITWPsupport' );
 $updater->set_repository( 'boise-state-ee-accessibility-plugin' );
 $updater->initialize();
 
+// From https://eventespresso.com/topic/how-do-i-stop-extra-ee-code-being-added-to-all-pages/
+add_action('template_redirect', 'ee_remove_cart_markup');
+function ee_remove_cart_markup(){
+	if( is_page( array( 996, 14  ) ) ) {
+		remove_action( 'loop_start', array( 'EED_Single_Page_Checkout', 'set_checkout_anchor' ), 1 );
+	}
+}
 
 function boise_state_ee_accessibility($content) {
+	// SAVING THIS FOR A FUTURE VERSION: Event Espresso stuff we may or may not use
+	/*
+	// The Event Espresso plugin introduces some WCAG errors. This block adds a title
+	// to any field named 'tkt-slctr-request-processor-email'
+	$fields = $document->getElementsByTagName('input');
+	foreach($fields as $field) {
+		if ($field->getAttribute('name') == 'tkt-slctr-request-processor-email') {
+			$field->setAttribute('title', 'tkt-slctr-request-processor-email-hidden');
+		}
+	}
 
+	$tables = $dom->getElementsByTagName('table');
+	foreach($tables as $table) {
+		if ($table->getAttribute('class') == 'fc-border-separate') {
+			// Remove the style attribute from the table tag to get rid of any
+			// presentational attributes.
+			$field->setAttribute('style', '');
+			// TODO?: need to add "width:100%" (which we just removed from the table tag)
+			// on to the class 'fc-border-separate'
+		}
+	}
 
+	$tablerows = $dom->getElementsByTagName('tr');
+	foreach($tablerows as $tablerow) {
+		if ($tablerow->getAttribute('class') == 'fc-day-header') {	
+
+			// TODO: actually, this'll be only one of several class designations on this 
+			// tag, so we shouldn't do a literal string compare.
+			
+			$tablerow->setAttribute('style', '');
+
+			// TODO: need to add "width: 92px;" (which we just removed from the TR tag)
+			// on to the class 'fc-day-header'
+
+		}
+	}
+	*/
+	// END SAVE FOR FUTURE VERSION: Event Espresso
 }
 
 // The 3rd parameter here sets the priority. It's optional and defaults to 10.
 // By setting this higher, these string replacements happen *after* other plugins (like Tablepress) have done their thang.
-add_filter('the_content', 'bsu_accessibility', 400);
-add_filter('the_excerpt', 'bsu_accessibility', 400);
+add_filter('the_content', 'boise_state_ee_accessibility', 400);
+add_filter('the_excerpt', 'boise_state_ee_accessibility', 400);
