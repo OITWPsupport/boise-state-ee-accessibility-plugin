@@ -26,17 +26,6 @@ function ee_remove_cart_markup(){
 }
 
 function boise_state_ee_accessibility($content) {
-	// SAVING THIS FOR A FUTURE VERSION: Event Espresso stuff we may or may not use
-	/*
-	// The Event Espresso plugin introduces some WCAG errors. This block adds a title
-	// to any field named 'tkt-slctr-request-processor-email'
-	$fields = $document->getElementsByTagName('input');
-	foreach($fields as $field) {
-		if ($field->getAttribute('name') == 'tkt-slctr-request-processor-email') {
-			$field->setAttribute('title', 'tkt-slctr-request-processor-email-hidden');
-		}
-	}
-
 	$tables = $dom->getElementsByTagName('table');
 	foreach($tables as $table) {
 		if ($table->getAttribute('class') == 'fc-border-separate') {
@@ -62,8 +51,6 @@ function boise_state_ee_accessibility($content) {
 
 		}
 	}
-	*/
-	// END SAVE FOR FUTURE VERSION: Event Espresso
 }
 
 // The 3rd parameter here sets the priority. It's optional and defaults to 10.
